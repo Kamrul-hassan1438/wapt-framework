@@ -1,0 +1,22 @@
+
+Set-ExecutionPolicy RemoteSigned -Scope Process
+venv\scripts\activate
+
+venv\Scripts\activate
+
+ http://127.0.0.1:8000/api/docs
+
+
+ uvicorn api.main:app --reload --port 8000
+
+
+
+Phase 2
+ # Test against a safe, intentionally vulnerable target
+python cli.py scan http://testphp.vulnweb.com --type recon
+
+# Or test just recon against your own domain (with permission)
+python cli.py scan https://yourdomain.com --type recon
+
+# With custom rate limit
+python cli.py scan http://testphp.vulnweb.com --type recon --rate-limit 3

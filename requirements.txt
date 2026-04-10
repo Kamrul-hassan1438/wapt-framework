@@ -1,0 +1,47 @@
+# Web & HTTP
+httpx==0.27.0
+aiohttp==3.9.5
+beautifulsoup4==4.12.3
+playwright==1.44.0
+
+# API
+fastapi==0.111.0
+uvicorn[standard]==0.30.1
+websockets==12.0
+
+# Database
+sqlalchemy==2.0.30
+alembic==1.13.1
+aiosqlite==0.20.0
+
+# CLI
+click==8.1.7
+
+# Config
+pyyaml==6.0.1
+python-dotenv==1.0.1
+
+# Reporting
+jinja2==3.1.4
+weasyprint==62.3
+
+# DNS / Recon
+dnspython==2.6.1
+python-whois==0.9.4
+
+# Port scanning
+python-nmap==0.7.1
+
+# Security / Hashing
+passlib[bcrypt]==1.7.4
+python-jose[cryptography]==3.3.0
+
+# Testing
+pytest==8.2.2
+pytest-asyncio==0.23.7
+httpx==0.27.0
+
+# Utilities
+rich==13.7.1
+loguru==0.7.2
+python-multipart==0.0.9

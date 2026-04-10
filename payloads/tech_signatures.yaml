@@ -1,0 +1,142 @@
+signatures:
+  # Web Servers
+  - name: "Apache"
+    category: "web_server"
+    headers:
+      Server: ["Apache"]
+    confidence: 80
+
+  - name: "Nginx"
+    category: "web_server"
+    headers:
+      Server: ["nginx"]
+    confidence: 80
+
+  - name: "Microsoft IIS"
+    category: "web_server"
+    headers:
+      Server: ["Microsoft-IIS"]
+    confidence: 90
+
+  - name: "LiteSpeed"
+    category: "web_server"
+    headers:
+      Server: ["LiteSpeed"]
+    confidence: 90
+
+  # Frameworks / Languages
+  - name: "PHP"
+    category: "language"
+    headers:
+      X-Powered-By: ["PHP"]
+    cookies:
+      - "PHPSESSID"
+    confidence: 90
+
+  - name: "ASP.NET"
+    category: "framework"
+    headers:
+      X-Powered-By: ["ASP.NET"]
+      X-AspNet-Version: [".*"]
+    cookies:
+      - "ASP.NET_SessionId"
+      - "ASPXAUTH"
+    confidence: 90
+
+  - name: "Django"
+    category: "framework"
+    cookies:
+      - "csrftoken"
+      - "sessionid"
+    confidence: 70
+
+  - name: "Laravel"
+    category: "framework"
+    cookies:
+      - "laravel_session"
+      - "XSRF-TOKEN"
+    confidence: 85
+
+  - name: "Express.js"
+    category: "framework"
+    headers:
+      X-Powered-By: ["Express"]
+    confidence: 90
+
+  - name: "Ruby on Rails"
+    category: "framework"
+    headers:
+      X-Powered-By: ["Phusion Passenger"]
+    cookies:
+      - "_session_id"
+    confidence: 75
+
+  # CMS
+  - name: "WordPress"
+    category: "cms"
+    cookies:
+      - "wordpress_"
+      - "wp-settings-"
+    body_patterns:
+      - "/wp-content/"
+      - "/wp-includes/"
+      - "wp-login.php"
+    confidence: 95
+
+  - name: "Drupal"
+    category: "cms"
+    headers:
+      X-Generator: ["Drupal"]
+    cookies:
+      - "Drupal.visitor"
+    body_patterns:
+      - "/sites/default/files/"
+      - "Drupal.settings"
+    confidence: 90
+
+  - name: "Joomla"
+    category: "cms"
+    cookies:
+      - "joomla_user_state"
+    body_patterns:
+      - "/components/com_"
+      - "/media/jui/"
+    confidence: 85
+
+  # CDN / Cloud
+  - name: "Cloudflare"
+    category: "cdn"
+    headers:
+      CF-Ray: [".*"]
+      Server: ["cloudflare"]
+    confidence: 95
+
+  - name: "AWS CloudFront"
+    category: "cdn"
+    headers:
+      X-Cache: ["Hit from cloudfront", "Miss from cloudfront"]
+      Via: ["CloudFront"]
+    confidence: 90
+
+  - name: "Fastly"
+    category: "cdn"
+    headers:
+      X-Served-By: ["cache-"]
+      Fastly-Debug-Digest: [".*"]
+    confidence: 85
+
+  # Security
+  - name: "ModSecurity WAF"
+    category: "waf"
+    headers:
+      Server: ["Mod_Security", "NOYB"]
+    confidence: 70
+
+  - name: "Imperva WAF"
+    category: "waf"
+    headers:
+      X-Iinfo: [".*"]
+    cookies:
+      - "visid_incap_"
+      - "incap_ses_"
+    confidence: 90
