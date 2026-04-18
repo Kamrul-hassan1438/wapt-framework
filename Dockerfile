@@ -26,4 +26,4 @@ RUN mkdir -p logs reports/output
 
 EXPOSE 8000
 
-CMD ["python", "cli.py", "server"]
+CMD ["uvicorn", "api.main:app", "--reload", "--port", "8000"]
