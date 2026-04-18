@@ -1,0 +1,54 @@
+# Authentication Testing
+# Default and commonly used credentials
+
+default_credentials:
+  # Generic
+  - ["admin", "admin"]
+  - ["admin", "password"]
+  - ["admin", "admin123"]
+  - ["admin", "123456"]
+  - ["admin", "password123"]
+  - ["admin", ""]
+  - ["root", "root"]
+  - ["root", "toor"]
+  - ["root", "password"]
+  - ["administrator", "administrator"]
+  - ["administrator", "password"]
+  - ["test", "test"]
+  - ["user", "user"]
+  - ["guest", "guest"]
+  - ["demo", "demo"]
+
+  # Application specific
+  - ["admin", "admin@123"]
+  - ["admin", "Admin@123"]
+  - ["admin", "changeme"]
+  - ["superuser", "superuser"]
+  - ["sa", "sa"]          # MSSQL
+  - ["postgres", "postgres"]  # PostgreSQL
+  - ["root", "mysql"]    # MySQL
+
+weak_passwords:
+  - "123456"
+  - "password"
+  - "12345678"
+  - "qwerty"
+  - "111111"
+  - "abc123"
+  - "letmein"
+  - "monkey"
+  - "master"
+  - "dragon"
+  - "pass"
+  - "test"
+  - "12345"
+  - "1234"
+  - "1q2w3e4r"
+  - "welcome"
+  - "admin"
+  - "login"
+  - "passw0rd"
+  - "p@ssword"
+  - "P@ssword1"
+
+  

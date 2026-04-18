@@ -20,3 +20,85 @@ python cli.py scan https://yourdomain.com --type recon
 
 # With custom rate limit
 python cli.py scan http://testphp.vulnweb.com --type recon --rate-limit 3
+
+
+
+
+Running Phase 3
+bash# Scanner only (Phase 3 modules)
+python cli.py scan http://testphp.vulnweb.com --type scan
+
+# Full scan — Recon + Scanner together (Phases 2+3)
+python cli.py scan http://testphp.vulnweb.com --type full
+
+# With slower rate limit (be polite)
+python cli.py scan http://testphp.vulnweb.com --type full --rate-limit 3
+
+
+
+
+Running Phase 4
+bash# Vuln modules only (needs Phase 3 to have run first for input registry)
+python cli.py scan http://testphp.vulnweb.com --type vuln
+
+# Full end-to-end scan — Recon + Scanner + Vulns
+python cli.py scan http://testphp.vulnweb.com --type full
+
+# Slow and careful
+python cli.py scan http://testphp.vulnweb.com --type full --rate-limit 2 --timeout 15
+
+
+# Or run locally with Docker:
+docker run -d -p 8080:80 webgoat/webgoat
+python cli.py scan http://localhost:8080 --type full
+
+docker run -d -p 8081:80 vulnerables/web-dvwa
+python cli.py scan http://localhost:8081 --type full
+
+
+
+Running Phase 5
+bash# Generate all report formats for a scan
+python cli.py report <scan_id> --format all
+
+python cli.py report ccdf2e53-bc72-458c-bcdd-12f89bc3ee6d --format all
+
+# HTML only
+python cli.py report <scan_id> --format html
+
+python cli.py report 901e8847-2237-445d-8f13-2e430a666860 --format html
+
+# PDF only
+python cli.py report <scan_id> --format pdf
+
+# Markdown (great for Jira/GitHub)
+python cli.py report <scan_id> --format markdown
+
+# JSON (for SIEM / automation)
+python cli.py report <scan_id> --format json
+
+# Full workflow — scan then report in one go:
+python cli.py scan http://testphp.vulnweb.com --type full
+# Copy the scan ID from the output, then:
+python cli.py report <scan_id> --format all
+
+Via the API:
+bash# Start the server
+python cli.py server
+
+# Generate report via API
+curl -X POST http://localhost:8000/api/reports/generate \
+  -H "Content-Type: application/json" \
+  -d '{"scan_id": "<scan_id>", "formats": ["html","pdf","json","markdown"]}'
+
+# List all generated reports
+curl http://localhost:8000/api/reports/list
+
+# Quick summary (no file generated)
+curl http://localhost:8000/api/reports/<scan_id>/summary
+
+# Download a specific report
+curl -O http://localhost:8000/api/reports/download/WAPT-8A6D0172-20260409-155533.pdf
+
+
+

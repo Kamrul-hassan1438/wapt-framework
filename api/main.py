@@ -1,6 +1,6 @@
 import logging
 from contextlib import asynccontextmanager
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from loguru import logger
 from pathlib import Path
@@ -70,3 +70,18 @@ async def health_check():
         "version": settings.app.version,
         "env": settings.app.env,
     }
+
+
+# Add this middleware to main.py after creating the app instance:
+
+import time
+from core.security import audit
+
+@app.middleware("http")
+async def audit_middleware(request: Request, call_next):
+    """Log every API request with timing."""
+    start = time.monotonic()
+    response = await call_next(request)
+    duration_ms = (time.monotonic() - start) * 1000
+    audit.log_api_request(request, response.status_code, duration_ms)
+    return response
