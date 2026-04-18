@@ -1,6 +1,5 @@
-FROM python:3.11-slim
+FROM python:3.11-slim-bookworm
 
-# System dependencies for WeasyPrint and Nmap
 RUN apt-get update && apt-get install -y \
     nmap \
     libpango-1.0-0 \
@@ -8,7 +7,7 @@ RUN apt-get update && apt-get install -y \
     libharfbuzz0b \
     libffi-dev \
     libcairo2 \
-    libgdk-pixbuf2.0-0 \
+    libgdk-pixbuf-2.0-0 \
     libssl-dev \
     curl \
     && apt-get clean \
