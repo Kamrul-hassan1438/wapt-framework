@@ -1,0 +1,33 @@
+# fly.toml
+# Replace "wapt-framework-yourname" with your unique app name
+app = "wapt-framework-SHORTCuT"
+primary_region = "sin"
+
+[build]
+  # Uses your Dockerfile automatically
+
+[env]
+  APP_ENV = "production"
+  APP_HOST = "0.0.0.0"
+  APP_PORT = "8000"
+  LOG_LEVEL = "INFO"
+  DEFAULT_RATE_LIMIT = "5"
+  DEFAULT_TIMEOUT = "10"
+  REPORT_OUTPUT_DIR = "reports/output"
+
+[http_service]
+  internal_port = 8000
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+
+  [http_service.concurrency]
+    type = "requests"
+    hard_limit = 25
+    soft_limit = 20
+
+[[vm]]
+  memory = "512mb"
+  cpu_kind = "shared"
+  cpus = 1

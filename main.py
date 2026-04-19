@@ -31,10 +31,12 @@ logging.getLogger("sqlalchemy.engine").setLevel(
 async def lifespan(app: FastAPI):
     """Startup and shutdown logic."""
     logger.info(f"Starting {settings.app.name} v{settings.app.version}")
+
     Path(settings.report_output_dir).mkdir(parents=True, exist_ok=True)
+    Path("reports/output").mkdir(parents=True, exist_ok=True)
+    Path("logs").mkdir(parents=True, exist_ok=True)
     await init_db()
     logger.success("Database initialized.")
-    yield
     logger.info("Shutting down...")
 
 
