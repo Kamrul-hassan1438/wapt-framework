@@ -1,6 +1,6 @@
 # fly.toml
 # Replace "wapt-framework-yourname" with your unique app name
-app = "wapt-framework-SHORTCuT"
+app = "wapt-framework-shortcut"
 primary_region = "sin"
 
 [build]

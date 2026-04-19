@@ -102,3 +102,11 @@ curl -O http://localhost:8000/api/reports/download/WAPT-8A6D0172-20260409-155533
 
 
 
+
+flyctl secrets set SECRET_KEY="9-zRaOkIy1J-XX50T1g0uIEen7uAc-RKJ7ZiH2YM_JqEw6yRAir1eHXcneAy8Zfs"
+flyctl secrets set DATABASE_URL="sqlite+aiosqlite:///./wapt.db"
+flyctl secrets set APP_ENV="production"
+
+deployed --    https://wapt-framework-shortcut.fly.dev/
+
+
