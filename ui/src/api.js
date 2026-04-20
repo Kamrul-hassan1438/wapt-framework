@@ -17,10 +17,9 @@ async function request(path, options = {}) {
 
   return data
 }
-const API = import.meta.env.VITE_API_URL;
 
 export async function getHealth() {
-  const res = await fetch(`${API}/health`);
+  const res = await fetch(`${API_BASE}/health`);
   return res.json();
 }
 
